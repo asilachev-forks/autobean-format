@@ -5,11 +5,6 @@ from . import base
 
 _TopLevelEntity: TypeAlias = models.Directive | models.BlockComment
 _Block: TypeAlias = Sequence[_TopLevelEntity]
-_BLANK_LINE_SURROUNDED = {
-    models.BlockComment,
-    models.IgnoredLine,
-    models.Transaction,
-}
 
 
 def _get_category(model: _TopLevelEntity) -> str:
@@ -27,10 +22,6 @@ def _should_split(prev: Optional[_TopLevelEntity], current: _TopLevelEntity) -> 
         return False
     current_spacing = prev.spacing_after.count('\n')
     if current_spacing >= 2:
-        return True
-    if type(prev) in _BLANK_LINE_SURROUNDED or type(current) in _BLANK_LINE_SURROUNDED:
-        return True
-    if _get_category(prev) != _get_category(current):
         return True
     return False
 
