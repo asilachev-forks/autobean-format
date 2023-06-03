@@ -21,7 +21,7 @@ def _should_split(prev: Optional[_TopLevelEntity], current: _TopLevelEntity) -> 
     if prev is None:
         return False
     current_spacing = prev.spacing_after.count('\n')
-    if current_spacing >= 4:
+    if current_spacing >= 2:
         return True
     return False
 
